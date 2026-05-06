@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HỆ THỐNG THI TRẮC NGHIỆM NGHỀ KHOA MÁY THI CÔNG - CAEE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-  <style>
+   <style>
     :root {
         --caee-blue: #003399; 
         --header-blue: #0040cc;
@@ -119,20 +119,7 @@
         </div>
     </div>
     <div id="timer" class="timer-floating">20:00</div>
-#warning-overlay {
-    background: rgba(220, 53, 69, 0.4) !important; /* Giảm độ đậm để thấy hiệu ứng blur phía sau */
-    backdrop-filter: blur(20px) !important;
-}
-.warning-box {
-    background: white; color: #dc3545;
-    padding: 40px; border-radius: 30px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    animation: pulse-warning 1s infinite alternate;
-}
-@keyframes pulse-warning {
-    from { transform: scale(1); }
-    to { transform: scale(1.05); }
-}
+
     <div id="start-screen">
         <div class="welcome-container">
             <div style="text-align: center; margin-bottom: 20px;">
@@ -216,6 +203,7 @@
             <p style="margin-top: 25px; color: #666; font-size: 0.85rem;">Hệ thống tự đóng sau <span id="countdown">15</span> giây...</p>
         </div>
     </div>
+
 <script>
     const BASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQX7gLNKe58sjBUDPDQOohDehuVD22EFgCe472mKd61a6d_FPIYFoh21DEdi9_BS7yukbuwy69Q9oZZ/pub?output=csv&gid=";
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwG-oFBhn_GiGypEp6k2nzX7JMjG0t8Jil2C1cDJjTVoD_GGWVzbzFybh88WcsxlL1o/exec";
@@ -239,7 +227,9 @@
         };
         synth.speak(utter);
     }
+
     window.onload = preloadQuestions;
+
     function preloadQuestions() {
         const gid = document.getElementById('jobType').value;
         Papa.parse(BASE_CSV_URL + gid, {
