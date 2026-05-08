@@ -282,7 +282,40 @@ body {
             alert("Lỗi kết nối Server!"); btn.disabled = false; 
         }
     }
+function preloadQuestions() {
+    const jobSelect = document.getElementById('jobType');
+    const gid = jobSelect.value;
+    const body = document.body;
 
+    // --- LOGIC ĐỔI HÌNH NỀN TỰ ĐỘNG ---
+    // Xóa các class nền cũ
+    body.classList.remove('bg-xe-nang', 'bg-can-truc', 'bg-cau-truc');
+
+    // Thêm class nền mới dựa trên giá trị (GID) hoặc text của option
+    const selectedText = jobSelect.options[jobSelect.selectedIndex].text;
+    
+    if (selectedText.includes("XE NÂNG")) {
+        body.classList.add('bg-xe-nang');
+    } else if (selectedText.includes("CẦN TRỤC")) {
+        body.classList.add('bg-can-truc');
+    } else if (selectedText.includes("CẦU TRỤC")) {
+        body.classList.add('bg-cau-truc');
+    }
+    // ---------------------------------
+
+    Papa.parse(BASE_CSV_URL + gid, {
+        download: true, header: true, skipEmptyLines: true,
+        complete: function(results) {
+            allQuestions = results.data.filter(i => i.CauHoi).map(i => ({
+                question: i.CauHoi, 
+                options: [i.A, i.B, i.C, i.D].filter(o => o),
+                answer: i.DapAnDung ? i.DapAnDung.trim().toUpperCase() : "",
+                explanation: i.Giaithich || "Thực hiện đúng quy trình an toàn kỹ thuật.",
+                image: i["HINH ANH"] || "" 
+            }));
+        }
+    });
+}
     function startQuiz() {
         // Đưa thông tin vào khung AI
         document.getElementById('display-name').innerText = document.getElementById('studentName').value.toUpperCase();
